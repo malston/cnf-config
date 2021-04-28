@@ -1,0 +1,38 @@
+#@data/values
+---
+cluster_template_name: dish-ndc-workload
+cluster_template_description: Dish NDC workload
+cluster_name: dish-dnc-workload-cluster
+cluster_description: dish dnc workload cluster
+hcx_cloud_url: https://tca-cp-ndc.dish.hott.cloud
+
+masterNodes:
+  - cpu: 4
+    memory: 8192
+    name: ndc-workload-mc1
+    networks:
+      - label: k8s-mgmt-network
+    storage: 100
+    replica: 3
+    labels:
+      - master=true
+
+workerNodes:
+  - cpu: 32
+    memory: 65536
+    name: ndc-workload-1
+    networks:
+      - label: k8s-mgmt-network
+      - label: oam-network
+      - label: signalling-network
+      - label: n35
+    storage: 100
+    replica: 6
+    labels:
+      - is_edge=true
+      - is_worker=true
+      - nokia=ndc
+    config:
+      cpuManagerPolicy:
+        type: kubernetes
+        policy: default

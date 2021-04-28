@@ -1,0 +1,365 @@
+---
+tags:
+  all: true
+  amms: false
+  dbs: false
+  emms: false
+  ipds: false
+  ipps: false
+  necc: false
+  paps: false
+  networkcrd: false
+  alms: false
+  ctcs: false
+  eems: false
+  pvc: true
+
+global:
+  env_name: cys001r-cnf-nk-amf101-001
+  k8s_apiserver_endpoints:
+    - 10.140.21.21
+    - 10.140.21.22
+    - 10.140.21.31
+  k8s_apiserver_port: 6443
+  env_separator: '-'
+  ne_type: amf
+  cmm_uuid: e93ae4ac-5265-48d2-ae5f-745935275c0b
+  necccount: 2
+  storageclass: nfs-client
+  timezone: UTC
+  stdout_logging: true
+  stdout_log1: /data-logs/master.log
+  stdout_log2: /data-logs/fslog.log
+  stdout_log3: /data-logs/signaling.log
+  disable_hpa: false
+  disable_apparmor: true
+  rbac_resourcename: privileged
+  openshift: False
+  cbam: False
+  bcmt: False
+  multi_container: false
+  cluster_cidr: []
+  scale:
+    amms:
+      minReplicas: 1
+      maxReplicas: 10
+      cpu_utilization: 80
+      memory_utilization: 91
+      ue_utilization: 350000
+    emms:
+      minReplicas: 0
+      maxReplicas: 0
+      cpu_utilization: 80
+      memory_utilization: 91
+      ue_utilization: 350000
+    dbs:
+      minReplicas: 2
+      maxReplicas: 5
+      cpu_utilization: 80
+      memory_utilization: 91
+    ipds:
+      minReplicas: 2
+      maxReplicas: 2
+      cpu_utilization: 80
+    ipps:
+      minReplicas: 0
+      maxReplicas: 0
+      cpu_utilization: 81
+    paps:
+      minReplicas: 0
+      maxReplicas: 0
+      cpu_utilization: 82
+    alms:
+      minReplicas: 0
+      maxReplicas: 0
+    ctcs:
+      minReplicas: 0
+      maxReplicas: 0
+    eems:
+      minReplicas: 0
+      maxReplicas: 0
+      ue_utilization: 100000
+  kubeDNS:
+    ip: "100.64.0.10"
+  prometheus:
+    namespaceLabel:
+      permission: talk-to-all
+    podLabel:
+      app: prometheus
+  sbi_net_container_native: False
+  sbi_net_container_lb: istio
+  istio:
+    createGateway: True
+  pvc_hostpath_prefix:
+  skipNeccPvcCleanupJob: True
+  dbs_duplex: False
+  neccvolumes:
+    pcmd_pvc: 15Gi
+    perf_pvc: 50Gi
+    logs_pvc: 15Gi
+    kafka_pvc: 15Gi
+    influx_pvc: 1Gi
+    redis_pvc: 5Gi
+    charging_pvc: 1Gi
+    pm_pvc: 15Gi
+    shared_pvc: 10Gi
+    store_pvc: 50Gi
+    mariadb_pvc: 2Gi
+  oam:
+    type: ipv4
+    ipv4:
+      ip:
+        - 10.141.49.164
+        - 10.141.49.165
+        - 10.141.49.166
+      floating_ip: 10.141.49.167
+      cidr: 10.141.49.160/28
+      gw: 10.141.49.161
+    interface: eth2
+    host_interface: eth2
+  external_cni: ipvlan
+  external:
+    ipds:
+    - name: SBI
+      type: dual
+      host_interface: eth1
+      interface: eth2
+      vlan:
+      ipv4:
+        cidr: 10.141.49.0/26
+        gw: 10.141.49.1
+        ip:
+          - 10.141.49.61
+          - 10.141.49.62
+      ipv6:
+        cidr: 2605:c540:8020:300b::/122
+        gw: 2605:c540:8020:300b::1
+        ip:
+          - 2605:c540:8020:300b::3d
+          - 2605:c540:8020:300b::3e
+    - name: NGRAN
+      type: dual
+      host_interface: eth3
+      interface: eth3
+      vlan:
+      ipv4:
+        cidr: 10.141.49.128/28
+        gw: 10.141.49.129
+        ip:
+          - 10.141.49.141
+          - 10.141.49.142
+      ipv6:
+        cidr: 2605:c540:8020:300d::/124
+        gw: 2605:c540:8020:300d::1
+        ip:
+          - 2605:c540:8020:300d::d
+          - 2605:c540:8020:300d::e
+    - name: LI
+      type: dual
+      host_interface: eth4
+      interface: eth4
+      vlan:
+      ipv4:
+        cidr: 10.141.49.144/28
+        gw: 10.141.49.145
+        ip:
+          - 10.141.49.157
+          - 10.141.49.158
+      ipv6:
+        cidr: 2605:c540:8020:300e::/124
+        gw: 2605:c540:8020:300e::1
+        ip:
+          - 2605:c540:8020:300e::d
+          - 2605:c540:8020:300e::e
+  secrets:
+    users:
+      cmm_passwd: ABcd1234!
+      cbamuser_passwd:
+      sam5620_passwd:
+      cgw_passwd:
+      dcae_dfc_passwd:
+      rsp_passwd:
+      diagnostic_passwd:
+      trainee_passwd:
+      ca4mn_passwd:
+      cmmsecurity_pass:
+      root_passwd: Dish_1234
+
+  provisioning:
+    # Site specific config
+    network_name: DISH
+    network_short_name: DSH
+    prometheusGWIp: 10.111.226.186
+    prometheusGWPort: 9091
+    amfregionid: 10
+    amfsetid: 256
+    amfpointer: 1
+    mcc: "313"
+    mnc: "340"
+    plmn_timezone: America/Denver
+    # start/end supi must be enclosed in quotes
+    start_supi1: "313340000000000"
+    end_supi1: "313340999999999"
+    start_supi2: "313340001250000"
+    end_supi2: "313340001374999"
+    start_supi3: "313340001375000"
+    end_supi3: "313340001499999"
+    # min 1 DNN
+    dnn1: imssig
+    # optional dnn2
+    dnn2: 5ginternet
+    # min 1 slice
+    sst1: 1
+    sd1:  ABCDEF
+    # optional sst2/sd2
+    sst2: 2
+    sd2:  ABCDEF
+    # min 1 tac
+    tac:
+      - 3111
+      - 3112
+      - 3113
+      - 3114
+    # local IP addresses:
+    ipv4:
+      n2_ip: 10.141.49.132
+      n8_ip: 10.141.49.4
+      n11_ip: 10.141.49.5
+      n12_ip: 10.141.49.6
+      n14_ip: 10.141.49.7
+      n15_ip: 10.141.49.8
+      n17_ip: 10.141.49.9
+      n22_ip: 10.141.49.10
+      n20_ip: 10.141.49.11
+      n26_ip: 10.141.49.12
+      nnrf_ip: 10.141.49.13
+      nsms_ip: 10.141.49.14
+      amf_svc_default_ip: 10.141.49.15
+      amf_svc_loc_ip: 10.141.49.16
+      amf_svc_com_ip: 10.141.49.17
+      amf_svc_ee_ip: 10.141.49.18
+      amf_svc_mt_ip: 10.141.49.19
+      nfy_eir_ip: 10.141.49.20
+      nfy_amf_ip:  10.141.49.21
+      nfy_ausf_ip: 10.141.49.22
+      nfy_nrf_ip:  10.141.49.23
+      nfy_nssf_ip: 10.141.49.24
+      nfy_pcf_ip: 10.141.49.25
+      nfy_smf_ip: 10.141.49.26
+      nfy_udm_ip: 10.141.49.27
+      nfy_smsf_ip: 10.141.49.28
+      nfy_cbcf_ip: 10.141.49.29
+      Nlmf_ip: 10.141.49.30
+      Ngmlc_ip: 10.141.49.31
+      NfyLMF_ip: 10.141.49.32
+      NfyGMLC_ip: 10.141.49.33
+    ipv6:
+      n2_ip: 2605:c540:8020:300d::4
+      n8_ip: 2605:c540:8020:300b::4
+      n11_ip: 2605:c540:8020:300b::5
+      n12_ip: 2605:c540:8020:300b::6
+      n14_ip: 2605:c540:8020:300b::7
+      n15_ip: 2605:c540:8020:300b::8
+      n17_ip: 2605:c540:8020:300b::9
+      n22_ip: 2605:c540:8020:300b::10
+      n26_ip: 2605:c540:8020:300b::11
+      nnrf_ip: 2605:c540:8020:300b::12
+      nsms_ip: 2605:c540:8020:300b::13
+      amf_svc_default_ip: 2605:c540:8020:300b::14
+      amf_svc_loc_ip: 2605:c540:8020:300b::15
+      amf_svc_com_ip: 2605:c540:8020:300b::16
+      amf_svc_ee_ip: 2605:c540:8020:300b::17
+      amf_svc_mt_ip: 2605:c540:8020:300b::18
+      nfy_eir_ip: 2605:c540:8020:300b::19
+      nfy_amf_ip: 2605:c540:8020:300b::20
+      nfy_ausf_ip: 2605:c540:8020:300b::21
+      nfy_nrf_ip: 2605:c540:8020:300b::22
+      nfy_nssf_ip: 2605:c540:8020:300b::23
+      nfy_pcf_ip: 2605:c540:8020:300b::24
+      nfy_smf_ip: 2605:c540:8020:300b::25
+      nfy_udm_ip: 2605:c540:8020:300b::26
+      n20_ip: 2605:c540:8020:300b::27
+      nfy_smsf_ip: 2605:c540:8020:300b::28
+      nfy_cbcf_ip: 2605:c540:8020:300b::29
+      Nlmf_ip: 2605:c540:8020:300b::30
+      Ngmlc_ip: 2605:c540:8020:300b::31
+      NfyLMF_ip: 2605:c540:8020:300b::32
+      NfyGMLC_ip: 2605:c540:8020:300b::33
+
+    dns_ipds_ip1: 10.141.49.59
+    dns_ipds_ip2: 10.141.49.60
+    # remote endpoints AMF talks to:
+    primary_dns_ip: 10.133.0.3
+    secondary_dns_ip: 10.133.0.4
+    nrf_endpoint_ip: 10.133.20.242
+    #nrf_endpoint_fqdn:
+    nrf_endpoint_port: 80
+    nssf_endpoint_ip: 192.168.1.200
+    #nssf_endpoint_fqdn: nrf.dishnokia.com
+    nssf_endpoint_port: 80
+  containers:
+    emms_amms:
+      imageName: #@ data.values.image_repository/cpps:CMM21.0.0_B1_C2085"
+      resources:
+        cpu: 10
+        memory: 28Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 5
+      periodSeconds: 20
+    dbs:
+      imageName: #@ data.values.image_repository/dbs:CMM21.0.0_B1_C2085"
+      resources:
+            cpu: 8
+            memory: 24Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 15
+      periodSeconds: 20
+    ipds:
+      imageName: #@ data.values.image_repository/ipds:CMM21.0.0_B1_C2085"
+      resources:
+            cpu: 10
+            memory: 52Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      antiaffinity:
+        - necc
+        - ipds
+    ipps:
+      imageName: #@ data.values.image_repository/ipps:CMM21.0.0_B1_C2085"
+      resources:
+        cpu: 8
+        memory: 32Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 30
+      periodSeconds: 20
+    necc:
+      imageName: #@ data.values.image_repository/necc:CMM21.0.0_B1_C2085"
+      resources:
+            cpu: 8
+            memory: 32Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 120
+      periodSeconds: 20
+      pvc: true
+      antiaffinity:
+        - necc
+    paps:
+      imageName: #@ data.values.image_repository/paps:CMM21.0.0_B1_C2085"
+      resources:
+        cpu: 10
+        memory: 24Gi
+      nodeSelector:
+        region: region1
+      initialDelaySeconds: 30
+      periodSeconds: 20
+
+cmm-config-map:
+  security_level: 3
+  ipds_env_multi: False
+  cmm_env_l3ns: False

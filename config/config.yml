@@ -1,0 +1,28 @@
+#@ load("@ytt:data", "data")
+
+---
+#! Provide tca environment information
+tca:
+  server: #@ data.values.server
+  vc: #@ data.values.vc
+  hcx: #@ data.values.hcx
+  bootstrapper: #@ data.values.bootstrapper
+
+extension:
+  harbor:
+    name: Hbr
+    url: https://harbor.example.com
+
+global:
+  debug: False
+
+smtp:
+  server: smtp.example.com
+  port: ""
+  authentication:
+    enabled: false
+    type: login
+    username: ""
+    password: ""
+  reciever:
+    - somebody@example.com

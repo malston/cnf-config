@@ -1,0 +1,6 @@
+#@data/values
+---
+server: https://tca-ndc.dish.hott.cloud
+vc: https://vc-ndc.dish.hott.cloud
+hcx: https://tca-cp-ndc.dish.hott.cloud
+bootstrapper: https://k8s-bootstrapper-dish.dish1.pocs.vmware-nfv.rocks

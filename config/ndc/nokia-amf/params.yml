@@ -1,0 +1,5 @@
+#@data/values
+---
+image_repository: harbor-ndc.dish.hott.cloud/nokia
+cnf_dir: NF/AMF
+version: 21.0.0

@@ -1,0 +1,31 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.all
+---
+#@overlay/match missing_ok=True
+cnf:
+  #@overlay/append
+  - name: matrixx-chf
+    csar: NF/AMF/Nokia-AMF-21.0.0.csar
+    vnfd_id: vnfd_c4699e78-5e3c-4d9f-8c71-1ea2a17530ba
+    node_group: rdc-cicd-amf
+    namespace: amf
+    repoUrl: https://54.244.214.50/chartrepo/nokia
+    helm_name: amf
+    clusterName: plab1
+    onboard:
+      metadata:
+        AMF Values: UPLOAD_FILE("generated-values.yml")
+      lcmInterfaces:
+        instantiate_start:
+          HOSTNAME: 10.140.21.31
+          USER: capv
+          PWD: "UGFzc3cwcmQxMjM0NSE="
+        instantiate_end:
+          HOSTNAME: 10.140.21.31
+          USER: capv
+          PWD: "UGFzc3cwcmQxMjM0NSE="
+    reconfigure:
+      parameters:
+        overrides: UPLOAD_FILE("generated-values.yml")
+        chartName: amf

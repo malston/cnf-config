@@ -1,0 +1,16 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.all
+---
+#@overlay/match missing_ok=True
+#@overlay/replace
+smtp:
+  server: smtp.vmware.com
+  port: ""
+  authentication:
+    enabled: false
+    type: login
+    username: ""
+    password: ""
+  reciever:
+    - lishen@vmware.com

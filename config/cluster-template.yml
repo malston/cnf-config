@@ -1,0 +1,55 @@
+#@ load("@ytt:data", "data")
+
+---
+name: #@ data.values.cluster_template_name
+description: #@ data.values.cluster_template_description
+clusterType: WORKLOAD
+
+clusterConfig:
+  cni:
+    - name: multus
+    - name: calico
+  csi:
+    - name: nfs_client
+    - name: vsphere-csi
+      properties:
+        timeout: '250'
+  kubernetesVersion: v1.18.6+vmware.1
+  tools:
+    - name: helm
+      version: 3.3.1
+
+tags: []
+
+masterNodes:
+  - cpu: 4
+    memory: 8192
+    name: ndc-workload-mc1
+    networks:
+      - label: k8s-mgmt-network
+    storage: 100
+    replica: 3
+    labels:
+      - master=true
+    #! cloneMode: fullClone # enum [ fullClone, linkedClone ]
+
+workerNodes:
+  - cpu: 32
+    memory: 65536
+    name: ndc-workload-1
+    networks:
+      - label: k8s-mgmt-network
+      - label: oam-network
+      - label: signalling-network
+      - label: n35
+    storage: 100
+    replica: 6
+    labels:
+      - is_edge=true
+      - is_worker=true
+      - nokia=ndc
+    #! cloneMode: fullClone # enum [ fullClone, linkedClone ]
+    config:
+      cpuManagerPolicy:
+        type: kubernetes
+        policy: static

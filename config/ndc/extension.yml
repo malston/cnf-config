@@ -1,0 +1,10 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.all
+---
+#@overlay/match missing_ok=True
+extension:
+  #@overlay/match missing_ok=True
+  harbor:
+    name: Harbor
+    url: https://harbor-ndc.dish.hott.cloud
